@@ -24,6 +24,7 @@ pipeline {
             steps {
                 sh 'docker build -t rafaelostertag/aks-kubectl:${IMAGE_VERSION} aks-kubectl'
                 sh 'docker build --build-arg VERSION=${IMAGE_VERSION} -t rafaelostertag/aks-helm:${IMAGE_VERSION} aks-helm'
+                sh 'docker build --build-arg VERSION=${IMAGE_VERSION} -t rafaelostertag/aks-helm-deploy-from-tag:${IMAGE_VERSION} aks-helm-deploy-from-tag'
             }
         }
 
@@ -40,6 +41,7 @@ pipeline {
                     sh 'docker login --username "$USERNAME" --password "$PASSWORD"'
                     sh 'docker push rafaelostertag/aks-kubectl:${IMAGE_VERSION}'
                     sh 'docker push rafaelostertag/aks-helm:${IMAGE_VERSION}'
+                    sh 'docker push rafaelostertag/aks-helm-deploy-from-tag:${IMAGE_VERSION}'
                 }
             }
         }
